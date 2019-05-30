@@ -11,7 +11,6 @@
 package com.guchaolong.javalearn.repository;
 
 import com.guchaolong.javalearn.entity.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 

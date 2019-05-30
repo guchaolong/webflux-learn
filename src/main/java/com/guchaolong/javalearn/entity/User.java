@@ -24,7 +24,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 
 @Document(collection = "user")//对应mongondb里的user表
-@Data
+@Data//自动写好setter getter toString
 public class User {
     @Id
     private String id;

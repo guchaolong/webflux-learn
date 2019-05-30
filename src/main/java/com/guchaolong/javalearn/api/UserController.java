@@ -81,15 +81,14 @@ public class UserController {
      * 修改
      */
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<User>> updateUser(@PathVariable("id") String id,
-                                                 @RequestBody User user) {
+    public Mono<ResponseEntity<User>> updateUser(@PathVariable("id") String id, @RequestBody User user) {
 
         return userRepository.findById(id).flatMap(u -> {
             u.setAge(18);
-            u.setName("gull");
+            u.setName("gullbfddshhvddddddddddddd");
             return userRepository.save(u);
-        }).map(user1 -> new ResponseEntity<User>(user1, HttpStatus.OK))
-                .defaultIfEmpty(new ResponseEntity<User>(HttpStatus.NOT_FOUND));
+        }).map(user1 -> new ResponseEntity<>(user1, HttpStatus.OK))
+                .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
         //flatMap操作数据   map转换数据
     }
 
@@ -100,7 +99,7 @@ public class UserController {
     @GetMapping("/getById/{id}")
     public Mono<ResponseEntity<User>> findById(@PathVariable("id") String id) {
 
-        return userRepository.findById(id).map(user -> new ResponseEntity<User>(user, HttpStatus.OK))
+        return userRepository.findById(id).map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
