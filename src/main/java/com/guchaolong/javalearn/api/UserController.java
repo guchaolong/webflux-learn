@@ -14,6 +14,7 @@ import com.guchaolong.javalearn.entity.User;
 import com.guchaolong.javalearn.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,7 @@ public class UserController {
     private UserRepository userRepository;
 
     /**
+     * 查找所有用户
      * 以数组形式一次性返回数据
      */
     @GetMapping("/list")
@@ -44,11 +46,39 @@ public class UserController {
     }
 
     /**
-     * 以SSE形式多次返回
+     * 查找所有用户
+     * 以SSE形式多次返回(以流的形式返回）
      */
     @GetMapping(value = "/stream/list", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<User> getStreamUser() {
         return userRepository.findAll();
+    }
+
+
+    /**
+     * 根据年龄段查找
+     * 一次性返回
+     */
+    @GetMapping(value = "/list/{start}/{end}")
+    public Flux<User> getUserByAge(@PathVariable("start") int start, @PathVariable("end") int end) {
+        return userRepository.findByAgeBetween(start, end);
+    }
+
+    /**
+     * 根据年龄段查找
+     * 以流的形式返回
+     */
+    @GetMapping(value = "/stream/list/{start}/{end}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<User> getUserByAge2(@PathVariable("start") int start, @PathVariable("end") int end) {
+        return userRepository.findByAgeBetween(start, end);
+    }
+
+    /**
+     * 查找30-60年龄段
+     */
+    @GetMapping(value = "/list3to6", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<User> getUserByAge3() {
+        return userRepository.findByAge30a60();
     }
 
     /**

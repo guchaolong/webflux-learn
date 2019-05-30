@@ -11,8 +11,10 @@
 package com.guchaolong.javalearn.repository;
 
 import com.guchaolong.javalearn.entity.User;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 
 /**
  * Description:
@@ -22,4 +24,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserRepository extends ReactiveMongoRepository<User,String> {
+
+    Flux<User> findByAgeBetween(int start, int end);
+
+    //年龄在30-60之间的
+    @Query("{'age':{'$gte':30,'$lte':60}}")
+    Flux<User> findByAge30a60();
 }
